@@ -170,6 +170,7 @@ const URLS={
   land:'CoverPanda Sign-Up/revamped-signup-prototype.html',
   gallery:'Launch Agent/vendor-stack-builder-prototype.html',
   agent:'Launch Agent/launch-agent-prototype.html',
+  candidate:'Launch Agent/candidate-portal-prototype.html',
   canvas:'Launch Agent/onboarding-portal-prototype.html',
   full:'Launch Agent/financial-os-prototype.html',
 };
@@ -205,7 +206,8 @@ const STAGES=[
     substeps:[
       { id:'gallery', icn:'i-store', l:'Curate your vendor marketplace', d:'Pick who fills each service category', persp:'zor' },
       { id:'agent', icn:'i-rocket', l:'Close & onboard a franchisee', d:'Publish the launch system; the agent runs it', persp:'zor' },
-      { id:'canvas', icn:'i-store', l:'Step into their onboarding portal', d:"Your franchisee's side — they meet vendors & connect their books", persp:'zee' },
+      { id:'candidate', icn:'i-flag', l:'Sign as the candidate', d:"The prospect's side — apply, qualify, e-sign, pay", persp:'zee' },
+      { id:'canvas', icn:'i-store', l:'Step into their onboarding portal', d:"The new franchisee's side — meet vendors & connect their books", persp:'zee' },
     ] },
   { id:'full', num:'3', persp:'zor', perspLabel:'You · brand', name:'Full — Financial OS', price:'+$150/mo → $249/mo total · same $20/unit',
     guide:"Connect your units' QuickBooks, watch your network come online, and send the board-ready report — drafted for you.",
@@ -274,13 +276,14 @@ function render(){
 function celebrate(stage){
   const map={ land:['Lite is live.','Your Starter workspace and royalty system are built — collection is ready to switch on. Ready to grow your network?'],
     gallery:['Marketplace published.','Your vendor stack is live for every franchisee. Next: publish your launch system.'],
-    agent:['Launch system live.','The agent is closing & onboarding for you. See it from your franchisee\'s side, or go Full.'],
+    agent:['Launch system live.','The agent is closing & onboarding for you. See it from your candidate\'s side, or go Full.'],
+    candidate:['The candidate signed.','That\'s the prospect\'s side — apply, qualify, e-sign, pay — and the moment they become a franchisee, their onboarding portal opens.'],
     canvas:['Your franchisee is onboarding.','That\'s the portal your franchisee works — meeting vetted vendors and connecting their books. These connections feed your Financial OS.'],
     expand:['Expand is live.','Your first franchisee is signed and onboarding. Their unit will roll into your Financial OS.'],
     full:['Full adoption reached. 🎉','Your network rolls up into one P&L and the board report drafts itself. You\'ve completed the journey.'] };
   const c=map[stage]; if(!c) return;
   // a sub-step completion marks the parent 'expand' in_progress (not fully live until agent milestone)
-  if(stage==='gallery'||stage==='canvas'){ if(st('expand')!=='live') setSt('expand','in_progress'); }
+  if(stage==='gallery'||stage==='canvas'||stage==='candidate'){ if(st('expand')!=='live') setSt('expand','in_progress'); }
   if(stage==='agent'||stage==='expand'){ setSt('expand','live'); }
   const el=document.getElementById('celebrate');
   const rec=recommended();

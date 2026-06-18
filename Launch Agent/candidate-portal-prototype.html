@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CoverPanda — Franchise Candidate Portal (Bright Pickleball · Maya Chen)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Instrument+Sans:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<script src="../journey-nav.js"></script>
+<style>
+  :root{
+    --bg:#fbfaf8;--panel:#f6f4f0;--stone:#efece6;--border:#e8e4dc;--border2:#ddd7cd;--card:#fff;
+    --ink:#131210;--ink-soft:#36342f;--body:#4a4842;--muted:#6e6b63;--muted2:#8a867c;
+    --ember:#ff3e00;--ember-soft:#ffece4;--ember-deep:#c93100;--green:#00a843;--green-soft:#e3f6ea;--green-deep:#00702e;
+    --blue:#0084ec;--blue-soft:#e6f2fd;--violet:#6e56e8;--violet-soft:#efecfd;--amber:#a87a08;--amber-soft:#faf2dd;
+    --font:'Instrument Sans',-apple-system,sans-serif;--display:'Fraunces',Georgia,serif;--mono:'Spline Sans Mono',ui-monospace,monospace;
+    --inset2:#e8e4dc 0 0 0 1px inset;--pop:0 1px 2px rgba(19,18,16,.05),0 12px 34px rgba(19,18,16,.12);--pop-lg:0 2px 6px rgba(19,18,16,.07),0 24px 64px rgba(19,18,16,.16);
+    --spring:cubic-bezier(.22,1,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font);background:var(--bg);color:var(--body);-webkit-font-smoothing:antialiased;letter-spacing:-.008em;font-size:14px;min-height:100vh}
+  .ic{width:16px;height:16px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;flex:none}
+  .ic--s{width:13px;height:13px}.ic--l{width:20px;height:20px}
+
+  .topbar{position:sticky;top:0;z-index:60;background:var(--card);border-bottom:1px solid var(--border);padding:0 26px}
+  .tb-row{display:flex;align-items:center;gap:13px;height:58px;max-width:1000px;margin:0 auto}
+  .tb-logo{width:30px;height:30px;border-radius:9px;background:var(--ink);display:grid;place-items:center;flex:none}
+  .tb-brand{font-size:14.5px;font-weight:700;color:var(--ink)}
+  .tb-sub{font-size:11.5px;color:var(--muted)}
+  .tb-prog{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted)}
+  .tb-ring{font-family:var(--display);font-size:15px;color:var(--ink)}
+  .tb-av{width:32px;height:32px;border-radius:50%;background:var(--ember);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700;flex:none}
+
+  .wrap{max-width:1000px;margin:0 auto;padding:26px 26px 90px;display:grid;grid-template-columns:1fr 320px;gap:22px;align-items:start}
+  @media (max-width:840px){.wrap{grid-template-columns:1fr}}
+  .seclab{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted2)}
+
+  /* current-step hero */
+  .hero{background:var(--ink);color:#fff;border-radius:20px;padding:24px 26px;position:relative;overflow:hidden}
+  .hero .eyebrow{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#a8d8bb;display:flex;align-items:center;gap:8px}
+  .hero h1{font-family:var(--display);font-weight:500;font-size:25px;margin:10px 0 6px;line-height:1.15}
+  .hero p{font-size:13.5px;color:#cdc9c1;line-height:1.55;max-width:520px}
+  .hero .acts{display:flex;gap:10px;align-items:center;margin-top:18px;flex-wrap:wrap}
+  .hero .done-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border-radius:99px;padding:7px 13px;font-size:12.5px;font-weight:600}
+
+  /* timeline */
+  .tl{margin-top:22px}
+  .step{display:flex;gap:14px;padding:4px 0}
+  .step .rail{display:flex;flex-direction:column;align-items:center;flex:none}
+  .step .dot{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;flex:none;background:var(--card);box-shadow:var(--inset2);color:var(--muted2);font-size:11px;font-weight:700;z-index:1}
+  .step.done .dot{background:var(--green);color:#fff;box-shadow:none}
+  .step.active .dot{background:var(--ink);color:#fff;box-shadow:none}
+  .step .line{width:2px;flex:1;background:var(--border);margin:3px 0}
+  .step:last-child .line{display:none}
+  .step .body{padding-bottom:18px;flex:1;min-width:0}
+  .step .st{font-size:14px;font-weight:700;color:var(--ink)}
+  .step.up .st{color:var(--muted)}
+  .step .sd{font-size:12.5px;color:var(--muted);margin-top:2px;line-height:1.45}
+  .step .meta{font-size:11px;font-weight:700;margin-top:6px;display:inline-flex;align-items:center;gap:6px;border-radius:99px;padding:3px 9px}
+  .step .meta.done{color:var(--green-deep);background:var(--green-soft)}
+  .step .meta.now{color:#fff;background:var(--ink)}
+  .step .meta.up{color:var(--muted2);box-shadow:var(--inset2)}
+  .step .sact{margin-top:9px}
+
+  /* side rail cards */
+  .scard{background:var(--card);border-radius:16px;box-shadow:var(--inset2);padding:17px 18px;margin-bottom:14px}
+  .guide{display:flex;gap:11px;align-items:flex-start}
+  .guide .pa{width:34px;height:34px;border-radius:10px;background:var(--ink);display:grid;place-items:center;flex:none}
+  .guide .gn{font-size:12.5px;font-weight:700;color:var(--ink)}
+  .guide .gt{font-size:12.5px;color:var(--body);line-height:1.5;margin-top:6px}
+  .deal{display:flex;justify-content:space-between;font-size:12.5px;padding:8px 0;border-bottom:1px solid #f4f1ec}
+  .deal:last-child{border-bottom:0}
+  .deal span{color:var(--muted)}.deal b{color:var(--ink)}
+  .qrow{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--ink-soft);padding:5px 0}
+  .qrow .ic{color:var(--green)}
+
+  /* gate */
+  .gate{position:fixed;inset:0;z-index:500;background:radial-gradient(130% 90% at 50% -20%, #fff, var(--bg));display:grid;place-items:center;padding:24px;overflow:auto}
+  .gate-card{max-width:470px;text-align:center;animation:rise .5s var(--spring)}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .gate-logo{width:56px;height:56px;border-radius:16px;background:var(--ink);display:grid;place-items:center;margin:0 auto 16px}
+  .gate-card h1{font-family:var(--display);font-weight:500;font-size:28px;color:var(--ink);line-height:1.16;margin:8px 0}
+  .gate-card p{font-size:14px;color:var(--body);line-height:1.62;max-width:420px;margin:0 auto}
+  .gate-card .form{background:var(--card);box-shadow:var(--inset2);border-radius:14px;padding:16px;text-align:left;margin:20px auto 0;max-width:430px}
+  .field{margin-bottom:11px}.field:last-child{margin-bottom:0}
+  .field label{display:block;font-size:11px;font-weight:700;color:var(--muted);margin-bottom:5px;letter-spacing:.02em}
+  .input{width:100%;border:0;background:var(--panel);border-radius:10px;padding:11px 13px;font-family:var(--font);font-size:13.5px;color:var(--ink)}
+  .input:focus{outline:none;box-shadow:0 0 0 1.5px var(--ink) inset}
+  .gate-actions{display:flex;flex-direction:column;align-items:center;gap:11px;margin-top:18px}
+
+  /* drawer */
+  .scrim{position:fixed;inset:0;background:rgba(19,18,16,.34);backdrop-filter:blur(2px);z-index:300;opacity:0;pointer-events:none;transition:opacity .25s}
+  .scrim.on{opacity:1;pointer-events:auto}
+  .drawer{position:fixed;top:0;right:0;bottom:0;width:480px;max-width:96vw;background:var(--bg);z-index:310;box-shadow:var(--pop-lg);transform:translateX(106%);transition:transform .38s var(--spring);display:flex;flex-direction:column}
+  .drawer.on{transform:none}
+  .dhead{display:flex;align-items:center;gap:10px;padding:16px 20px 14px;border-bottom:1px solid var(--border)}
+  .dh-t{font-size:14px;font-weight:700;color:var(--ink);flex:1}
+  .dhead .x{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;cursor:pointer;color:var(--muted)}
+  .dhead .x:hover{background:var(--panel)}
+  .dbody{flex:1;overflow-y:auto;padding:20px 22px}
+  .dfoot{padding:14px 22px;border-top:1px solid var(--border);display:flex;gap:9px;align-items:center;background:var(--bg)}
+  .dstep-h{font-size:18px;font-weight:600;font-family:var(--display);color:var(--ink)}
+  .dstep-s{font-size:12.5px;color:var(--muted);margin:4px 0 14px;line-height:1.5}
+  .row{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:var(--body);padding:6px 0;line-height:1.5}
+  .row .ic{color:var(--green);margin-top:2px}
+  .note{font-size:12px;color:var(--muted);line-height:1.55;background:var(--panel);border-radius:12px;padding:12px 14px;margin-top:14px}
+  .note b{color:var(--ink-soft)}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 4px}
+  .chip{font-size:12px;font-weight:600;border-radius:99px;padding:7px 13px;box-shadow:var(--inset2);background:var(--card);color:var(--ink-soft);cursor:pointer;border:0;font-family:var(--font)}
+  .chip.on{background:var(--ink);color:#fff;box-shadow:none}
+  .agree{background:var(--card);box-shadow:var(--inset2);border-radius:12px;padding:14px 16px;font-size:12.5px;color:var(--body);line-height:1.6;max-height:200px;overflow:auto}
+  .agree h4{font-family:var(--display);font-weight:600;color:var(--ink);font-size:14px;margin-bottom:7px}
+  .signbox{margin-top:12px;border:1.5px dashed var(--border2);border-radius:12px;padding:16px;text-align:center}
+  .signbox.signed{border-style:solid;border-color:var(--green);background:var(--green-soft)}
+  .sig{font-family:var(--display);font-size:24px;color:var(--ink);font-style:italic}
+  .payline{display:flex;justify-content:space-between;font-size:13px;padding:10px 0;border-bottom:1px solid #f4f1ec}
+  .payline:last-child{border-bottom:0}.payline b{color:var(--ink)}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;font-family:var(--font);font-size:13px;font-weight:600;border:0;border-radius:999px;cursor:pointer;padding:9px 15px;transition:transform .1s,background .15s;text-decoration:none;white-space:nowrap}
+  .btn:active{transform:scale(.98)}
+  .btn--dark{background:var(--ink);color:#fff}.btn--dark:hover{background:#2e2c28}
+  .btn--light{background:#fff;color:var(--ink)}.btn--light:hover{background:#f0ede7}
+  .btn--green{background:var(--green);color:#fff}.btn--green:hover{background:#009039}
+  .btn--ghost{background:var(--card);color:var(--ink-soft);box-shadow:var(--inset2)}.btn--ghost:hover{background:var(--panel)}
+  .btn--sm{padding:7px 12px;font-size:12px}.btn--lg{padding:12px 19px;font-size:14px}.btn--block{width:100%}
+  .mlink{color:var(--muted);cursor:pointer;font-size:12px;background:none;border:0;font-family:var(--font)}.mlink:hover{color:var(--ink)}
+
+  #toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(90px);z-index:400;background:var(--ink);color:#fff;border-radius:12px;padding:12px 16px;font-size:13px;font-weight:500;display:flex;align-items:center;gap:11px;box-shadow:var(--pop-lg);transition:transform .35s var(--spring);max-width:92vw}
+  #toast.on{transform:translateX(-50%) translateY(0)}
+  #toast .ic{color:#7ee2a4}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-panda" viewBox="0 0 26 26"><circle cx="9.7" cy="13.3" r="1.5" fill="#fff" stroke="none"/><circle cx="16.3" cy="13.3" r="1.5" fill="#fff" stroke="none"/><path d="M10.5 17.2c.9 1 3.1 1 4 0" stroke="#fff" stroke-width="1.4" fill="none"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 2l1.9 5.7L20 9.6l-5.6 2.3L12 18l-2.4-6.1L4 9.6l6.1-1.9z"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15v-4M12 17V8M17 13v-3"/></symbol>
+  <symbol id="i-bank" viewBox="0 0 24 24"><path d="m3 9 9-6 9 6"/><path d="M4 9v11M20 9v11M8 12v5M12 12v5M16 12v5"/><path d="M2 20h20"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-3.5 8-10V5l-8-3-8 3v7c0 6.5 8 10 8 10z"/></symbol>
+  <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 22V4M4 4h13l-2 4 2 4H4"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></symbol>
+  <symbol id="i-msg" viewBox="0 0 24 24"><path d="M21 11.5a8 8 0 0 1-11.6 7.2L3 21l2.3-6.4A8 8 0 1 1 21 11.5z"/></symbol>
+</svg>
+
+<div class="topbar">
+  <div class="tb-row">
+    <span class="tb-logo"><svg width="18" height="18" viewBox="0 0 26 26"><use href="#i-panda"/></svg></span>
+    <div><div class="tb-brand">Bright Pickleball</div><div class="tb-sub">Franchise candidate portal</div></div>
+    <span style="flex:1"></span>
+    <div class="tb-prog"><span>Your path to ownership</span><span class="tb-ring" id="tbPct">0%</span></div>
+    <span class="tb-av">MC</span>
+  </div>
+</div>
+
+<div class="wrap" id="wrap"></div>
+<div class="gate" id="gate"></div>
+<div class="scrim" id="scrim" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer"></div>
+<div id="toast"></div>
+
+<script>
+const $id=s=>document.getElementById(s);
+function ic(id,c){ return `<svg class="ic ${c||''}"><use href="#${id}"/></svg>`; }
+function toast(msg){ const t=$id('toast'); t.innerHTML=ic('i-check')+`<span>${msg}</span>`; t.classList.add('on'); clearTimeout(window._tt); window._tt=setTimeout(()=>t.classList.remove('on'),3600); }
+
+/* ---------- the candidate's path to ownership ---------- */
+const STEPS=[
+  { id:'apply', icon:'i-flag', t:'Application submitted', d:'You expressed interest in a Bright Pickleball franchise in Tucson, AZ.',
+    cta:null, doneMeta:'Submitted' },
+  { id:'qualify', icon:'i-user', t:'Qualification', d:'A quick financial & fit check so Bright Pickleball can confirm your territory.',
+    cta:'Complete qualification', action:'qualify' },
+  { id:'discovery', icon:'i-chart', t:'Discovery & the deal', d:'Review the opportunity, unit economics, and the FDD — and ask your guide anything.',
+    cta:'Review the opportunity', action:'discovery' },
+  { id:'dday', icon:'i-cal', t:'Discovery Day', d:'Visit a unit, meet the team, and see the system in action.',
+    cta:'Schedule your Discovery Day', action:'dday' },
+  { id:'approval', icon:'i-shield', t:'Mutual approval', d:'Bright Pickleball approves your candidacy; you confirm your intent to proceed.',
+    cta:'Confirm intent to proceed', action:'approval' },
+  { id:'sign', icon:'i-pen', t:'Sign your Franchise Agreement', d:'Review and e-sign the agreement for Bright Pickleball Tucson #1.',
+    cta:'Review & e-sign', action:'sign' },
+  { id:'fee', icon:'i-bank', t:'Pay your initial franchise fee', d:'Securely pay the one-time franchise fee to reserve your territory.',
+    cta:'Pay franchise fee', action:'fee' },
+  { id:'welcome', icon:'i-rocket', t:'Welcome — your onboarding begins', d:'You\'re officially a Bright Pickleball franchisee. Your onboarding portal is ready.',
+    cta:'Open my onboarding portal', action:'handoff' },
+];
+
+const STATE={ entered:false, cur:1, qualified:false, signed:false, paid:false, dday:'Sat, Jul 12' };
+
+/* ---------- gate (apply / sign in) ---------- */
+function renderGate(){
+  return `<div class="gate-card">
+    <div class="gate-logo"><svg width="28" height="28" viewBox="0 0 26 26"><use href="#i-panda"/></svg></div>
+    <span class="seclab">Bright Pickleball · Franchising</span>
+    <h1>Explore owning a Bright&nbsp;Pickleball.</h1>
+    <p>You asked about a franchise in <b>Tucson, AZ</b>. Create your candidate portal — your guide walks you from here to open doors, one clear step at a time. No pressure, no spreadsheets.</p>
+    <div class="form">
+      <div class="field"><label>Full name</label><input class="input" value="Maya Chen" /></div>
+      <div class="field"><label>Email</label><input class="input" value="maya@example.com" /></div>
+      <div class="field"><label>Market you're interested in</label><input class="input" value="Tucson, AZ" /></div>
+    </div>
+    <div class="gate-actions">
+      <button class="btn btn--dark btn--lg" onclick="enterPortal()">Start my application ${ic('i-arrow','ic--s')}</button>
+      <button class="mlink" onclick="toast('We saved your spot — check your email to continue any time.')">Just browsing for now</button>
+    </div>
+  </div>`;
+}
+function enterPortal(){ STATE.entered=true; toast('Application received · your guide is reviewing it'); rerender(); }
+
+/* ---------- progress ---------- */
+function pct(){ return Math.round(STATE.cur/(STEPS.length-1)*100); }
+
+/* ---------- render ---------- */
+function rerender(){
+  const gate=$id('gate');
+  if(!STATE.entered){ gate.style.display='grid'; gate.innerHTML=renderGate(); return; }
+  gate.style.display='none'; gate.innerHTML='';
+  $id('tbPct').textContent=pct()+'%';
+  $id('wrap').innerHTML = `<div>${renderHero()}${renderTimeline()}</div><div>${renderRail()}</div>`;
+}
+
+function renderHero(){
+  const s=STEPS[STATE.cur];
+  if(s.id==='welcome'){
+    return `<div class="hero" style="background:linear-gradient(135deg,#0a5e2b,#00a843)">
+      <div class="eyebrow" style="color:#d6f5e1">${ic('i-rocket','ic--s')} You're a franchisee</div>
+      <h1>Welcome to Bright Pickleball, Maya. 🎉</h1>
+      <p style="color:#e7f7ee">Tucson #1 is officially yours. Everything you set up here — your signed agreement and paid fee — carries straight into your onboarding portal, where your launch roadmap is waiting.</p>
+      <div class="acts">
+        <a class="btn btn--light btn--lg" href="onboarding-portal-prototype.html">Open my onboarding portal ${ic('i-arrow','ic--s')}</a>
+        <span class="done-badge" style="color:#fff">${ic('i-check','ic--s')} Agreement signed · fee paid</span>
+      </div></div>`;
+  }
+  return `<div class="hero">
+    <div class="eyebrow">${ic('i-spark','ic--s')} Your next step · ${STATE.cur} of ${STEPS.length-1} complete</div>
+    <h1>${s.t}</h1>
+    <p>${s.d}</p>
+    <div class="acts">
+      ${s.cta?`<button class="btn btn--light btn--lg" onclick="openAction('${s.action}')">${s.cta} ${ic('i-arrow','ic--s')}</button>`:''}
+      <span class="done-badge">${ic('i-msg','ic--s')} Message your guide</span>
+    </div></div>`;
+}
+
+function stepState(i){ return i<STATE.cur?'done':i===STATE.cur?'active':'up'; }
+function renderTimeline(){
+  const rows=STEPS.map((s,i)=>{
+    const st=stepState(i);
+    const dot=st==='done'?ic('i-check','ic--s'):(i+1);
+    let meta;
+    if(st==='done') meta=`<span class="meta done">${ic('i-check','ic--s')} ${s.id==='dday'?STATE.dday:'Done'}</span>`;
+    else if(st==='active') meta=`<span class="meta now">Happening now</span>`;
+    else meta=`<span class="meta up">Up next</span>`;
+    const act = (st==='active'&&s.cta)?`<div class="sact"><button class="btn btn--dark btn--sm" onclick="openAction('${s.action}')">${s.cta} ${ic('i-arrow','ic--s')}</button></div>`:'';
+    return `<div class="step ${st}">
+      <div class="rail"><div class="dot">${dot}</div><div class="line"></div></div>
+      <div class="body"><div class="st">${s.t}</div><div class="sd">${s.d}</div>${meta}${act}</div>
+    </div>`;
+  }).join('');
+  return `<div class="tl"><div class="seclab" style="margin-bottom:12px">Your path to ownership · ${STEPS.length} steps</div>${rows}</div>`;
+}
+
+function renderRail(){
+  const guideMsg = STATE.cur<=1
+    ? `I'm Riley, your Bright Pickleball guide. I've got your application — let's confirm a few financial basics and lock your Tucson territory.`
+    : STATE.cur===STEPS.length-1
+    ? `Congratulations, Maya! I'll see you on the operations side — your onboarding roadmap is ready when you are.`
+    : `You're moving fast, Maya. I've prepped everything for your next step — reach out any time and I'll respond within the hour.`;
+  return `
+    <div class="scard guide">
+      <div class="pa"><svg width="20" height="20" viewBox="0 0 26 26"><use href="#i-panda"/></svg></div>
+      <div><div class="gn">Riley · your Bright Pickleball guide ${ic('i-spark','ic--s')}</div>
+        <div class="gt">${guideMsg}</div>
+        <button class="btn btn--ghost btn--sm" style="margin-top:11px" onclick="toast('Messaging your guide — live in the full app')">${ic('i-msg','ic--s')} Message Riley</button></div>
+    </div>
+    <div class="scard">
+      <div class="seclab">The opportunity · Tucson #1</div>
+      <div style="margin-top:11px">
+        <div class="deal"><span>Total investment</span><b>$310K–$720K</b></div>
+        <div class="deal"><span>Initial franchise fee</span><b>$45,000</b></div>
+        <div class="deal"><span>Royalty</span><b>6% of revenue</b></div>
+        <div class="deal"><span>Protected territory</span><b>Tucson, AZ</b></div>
+        <div class="deal"><span>Projected open</span><b>~26 weeks</b></div>
+      </div>
+      <div style="font-size:10.5px;color:var(--muted2);line-height:1.5;margin-top:10px">Illustrative ranges from the FDD. No earnings claim is made outside FDD Item 19.</div>
+    </div>
+    <div class="scard">
+      <div class="seclab">Why you're already ahead</div>
+      <div style="margin-top:9px">
+        <div class="qrow">${ic('i-check','ic--s')} Vetted, brand-approved vendors at every step</div>
+        <div class="qrow">${ic('i-check','ic--s')} Financing & insurance lined up for you</div>
+        <div class="qrow">${ic('i-check','ic--s')} A guide who never lets a question sit</div>
+      </div>
+    </div>`;
+}
+
+/* ---------- step actions (drawer) ---------- */
+let QSEL=1;
+function openAction(a){
+  let body='', foot='', title='';
+  if(a==='qualify'){
+    title='Qualification';
+    body=`<div class="dstep-h">A quick fit check</div>
+      <div class="dstep-s">Bright Pickleball confirms candidates can comfortably fund a unit. Nothing here is a hard credit pull.</div>
+      <div class="seclab">Liquid capital available</div>
+      <div class="chips">${['$100K–$200K','$200K–$350K','$350K+'].map((o,i)=>`<button class="chip ${QSEL===i?'on':''}" onclick="QSEL=${i};openAction('qualify')">${o}</button>`).join('')}</div>
+      <div class="seclab" style="margin-top:12px">Timeline to open</div>
+      <div class="chips"><button class="chip on">Within 6 months</button><button class="chip">6–12 months</button></div>
+      <div class="seclab" style="margin-top:12px">Background</div>
+      <div class="chips"><button class="chip on">Multi-unit operator</button><button class="chip">First-time owner</button></div>
+      <div class="note">🐼 Riley pre-filled this from your application. Submitting lets the brand confirm your Tucson territory — your guide reviews it within the hour.</div>`;
+    foot=`<button class="mlink" onclick="closeDrawer()">Cancel</button><span style="flex:1"></span>
+      <button class="btn btn--green btn--lg" onclick="completeStep('qualified','Qualified · Tucson territory confirmed')">Submit qualification ${ic('i-arrow','ic--s')}</button>`;
+  }
+  else if(a==='discovery'){
+    title='Discovery & the deal';
+    body=`<div class="dstep-h">Everything you need to decide</div>
+      <div class="dstep-s">No homework to chase down — your guide assembled it for you.</div>
+      <div class="row">${ic('i-doc','ic--s')}<span><b>Franchise Disclosure Document (FDD)</b> — full 2026 edition</span></div>
+      <div class="row">${ic('i-chart','ic--s')}<span><b>Unit economics</b> — investment, ramp, and Item 19 performance</span></div>
+      <div class="row">${ic('i-doc','ic--s')}<span><b>Territory map</b> — your protected Tucson area</span></div>
+      <div class="row">${ic('i-spark','ic--s')}<span><b>Ask Riley anything</b> — answers in plain language, on the record</span></div>
+      <div class="note">🐼 Take your time. When you've reviewed the deal and your questions are answered, mark discovery complete and we'll schedule your Discovery Day.</div>`;
+    foot=`<button class="mlink" onclick="closeDrawer()">Keep reviewing</button><span style="flex:1"></span>
+      <button class="btn btn--green btn--lg" onclick="completeStep(null,'Discovery complete')">I've reviewed the opportunity ${ic('i-arrow','ic--s')}</button>`;
+  }
+  else if(a==='dday'){
+    title='Discovery Day';
+    body=`<div class="dstep-h">Pick a Discovery Day</div>
+      <div class="dstep-s">Visit a Bright Pickleball unit, meet the team, and see the system up close. Riley handles the logistics.</div>
+      <div class="chips">${['Sat, Jul 12','Wed, Jul 16','Sat, Jul 26'].map(d=>`<button class="chip ${STATE.dday===d?'on':''}" onclick="STATE.dday='${d}';openAction('dday')">${d}</button>`).join('')}</div>
+      <div class="note">🐼 You picked <b>${STATE.dday}</b>. I'll send your prep packet, travel details, and a calendar invite — and brief the team before you arrive.</div>`;
+    foot=`<button class="mlink" onclick="closeDrawer()">Cancel</button><span style="flex:1"></span>
+      <button class="btn btn--green btn--lg" onclick="completeStep(null,STATE.dday)">Confirm ${STATE.dday} ${ic('i-arrow','ic--s')}</button>`;
+  }
+  else if(a==='approval'){
+    title='Mutual approval';
+    body=`<div class="dstep-h">You're approved, Maya 🎉</div>
+      <div class="dstep-s">Bright Pickleball has reviewed your candidacy and your Discovery Day. You're cleared to become a franchisee.</div>
+      <div class="row">${ic('i-check','ic--s')}<span>Financial qualification confirmed</span></div>
+      <div class="row">${ic('i-check','ic--s')}<span>Tucson territory reserved for you</span></div>
+      <div class="row">${ic('i-check','ic--s')}<span>Discovery Day completed ${STATE.dday}</span></div>
+      <div class="note">Confirming your intent moves you to the Franchise Agreement. You can still ask Riley anything before you sign — nothing is binding yet.</div>`;
+    foot=`<button class="mlink" onclick="closeDrawer()">Not yet</button><span style="flex:1"></span>
+      <button class="btn btn--green btn--lg" onclick="completeStep(null,'Approved both ways')">Confirm my intent to proceed ${ic('i-arrow','ic--s')}</button>`;
+  }
+  else if(a==='sign'){
+    title='Franchise Agreement';
+    body=`<div class="dstep-h">Sign your Franchise Agreement</div>
+      <div class="dstep-s">For Bright Pickleball Tucson #1. Reviewed by your attorney; e-signed here on CoverPanda.</div>
+      <div class="agree"><h4>Franchise Agreement — Tucson #1</h4>
+        This Agreement is entered into between Bright Pickleball Franchising, LLC ("Franchisor") and Maya Chen ("Franchisee") for the operation of one Bright Pickleball unit within the protected Tucson, AZ territory. Term: 10 years, renewable. Royalty: 6% of gross revenue. Brand fund: 2%. Initial franchise fee: $45,000, due on execution. Franchisee agrees to the brand standards, build-out specifications, and required insurance minimums set forth in the FDD…</div>
+      <div class="signbox ${STATE.signed?'signed':''}" id="signbox">
+        ${STATE.signed?`${ic('i-check','ic--s')} <span style="font-weight:700;color:var(--green-deep)">Signed by Maya Chen</span>`:`<div class="sig">Maya Chen</div><button class="btn btn--dark btn--sm" style="margin-top:10px" onclick="STATE.signed=true;openAction('sign')">${ic('i-pen','ic--s')} Adopt & sign</button>`}
+      </div>
+      <div class="note">${ic('i-lock','ic--s')} Legally binding e-signature. A copy is filed to your documents and shared with Bright Pickleball automatically.</div>`;
+    foot=`<button class="mlink" onclick="closeDrawer()">Cancel</button><span style="flex:1"></span>
+      <button class="btn btn--green btn--lg" ${STATE.signed?'':'disabled style="opacity:.5"'} onclick="completeStep('signed','Agreement signed')">Submit signed agreement ${ic('i-arrow','ic--s')}</button>`;
+  }
+  else if(a==='fee'){
+    title='Initial franchise fee';
+    body=`<div class="dstep-h">Pay your franchise fee</div>
+      <div class="dstep-s">A one-time $45,000 fee reserves your territory and starts your build. Collected securely on CoverPanda Payments.</div>
+      <div class="scard" style="box-shadow:var(--inset2);margin:0">
+        <div class="payline"><span>Initial franchise fee — Tucson #1</span><b>$45,000.00</b></div>
+        <div class="payline"><span>Pay from</span><b>Bank account ••4471 (ACH)</b></div>
+        <div class="payline"><span>Receipt to</span><b>maya@example.com</b></div>
+      </div>
+      <div class="note">${ic('i-lock','ic--s')} Illustrative payment for this prototype — no real funds move. In production this runs on CoverPanda's secure payment rail; we never store your bank login.</div>`;
+    foot=`<button class="mlink" onclick="closeDrawer()">Cancel</button><span style="flex:1"></span>
+      <button class="btn btn--green btn--lg" onclick="completeStep('paid','Fee paid · $45,000')">Confirm &amp; pay $45,000 ${ic('i-arrow','ic--s')}</button>`;
+  }
+  else if(a==='handoff'){
+    location.href='onboarding-portal-prototype.html'; return;
+  }
+  $id('drawer').innerHTML=`<div class="dhead"><div class="dh-t">${title}</div><div class="x" onclick="closeDrawer()">${ic('i-x')}</div></div>
+    <div class="dbody">${body}</div><div class="dfoot">${foot}</div>`;
+  $id('scrim').classList.add('on'); $id('drawer').classList.add('on');
+}
+function closeDrawer(){ $id('scrim').classList.remove('on'); $id('drawer').classList.remove('on'); }
+function completeStep(flag, msg){
+  if(flag) STATE[flag]=true;
+  STATE.cur=Math.min(STATE.cur+1, STEPS.length-1);
+  closeDrawer(); rerender();
+  if(msg) toast(msg);
+}
+
+rerender();
+</script>
+</body>
+</html>

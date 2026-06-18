@@ -10,7 +10,8 @@
   var STAGE =
     path.indexOf('revamped-signup') > -1 ? 'land' :
     path.indexOf('financial-os') > -1 ? 'full' :
-    (path.indexOf('vendor-stack') > -1 || path.indexOf('launch-agent') > -1 || path.indexOf('connectivity') > -1) ? 'expand' :
+    (path.indexOf('vendor-stack') > -1 || path.indexOf('launch-agent') > -1 || path.indexOf('connectivity') > -1 ||
+     path.indexOf('onboarding-portal') > -1 || path.indexOf('candidate-portal') > -1 || path.indexOf('vendor-portal') > -1) ? 'expand' :
     null;
 
   function read() {
