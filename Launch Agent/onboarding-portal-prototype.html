@@ -36,7 +36,7 @@
   .tabs{display:flex;gap:2px;max-width:1080px;margin:0 auto}
   .tabs button{background:none;border:0;font-family:var(--font);font-size:13px;font-weight:600;color:var(--muted);padding:11px 14px;cursor:pointer;border-bottom:2px solid transparent;display:inline-flex;align-items:center;gap:7px}
   .tabs button.on{color:var(--ink);border-bottom-color:var(--ink)}
-  .tabs button:disabled{color:var(--muted2);cursor:default;opacity:.6}
+  .tabs button:hover:not(.on){color:var(--ink-soft)}
   .tabs .badge{font-size:10px;font-weight:700;background:var(--ember);color:#fff;border-radius:99px;padding:1px 6px}
 
   .wrap{max-width:1080px;margin:0 auto;padding:26px 26px 90px}
@@ -84,6 +84,7 @@
   .vconnect{margin:10px 0 4px 32px;background:var(--panel);border-radius:13px;box-shadow:var(--inset2);padding:14px 15px}
   .vconnect.engaged{box-shadow:0 0 0 1.5px var(--green) inset;background:var(--green-soft)}
   .vconnect.requested{box-shadow:0 0 0 1.5px var(--amber) inset;background:var(--amber-soft)}
+  .vconnect.self{background:var(--card);opacity:.92}
   .vc-top{display:flex;align-items:center;gap:10px}
   .vc-pa{width:28px;height:28px;border-radius:9px;background:var(--ink);display:grid;place-items:center;flex:none}
   .vc-lead{font-size:12.5px;font-weight:700;color:var(--ink)}
@@ -114,8 +115,60 @@
   .rc-vlogo{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-family:var(--display);font-weight:600;font-size:12px;color:#fff;flex:none}
   .rc-vn{font-size:12.5px;font-weight:700;color:var(--ink)}
   .rc-vs{font-size:11px;font-weight:600;margin-top:1px}
-  .rc-vs.ok{color:var(--green-deep)}.rc-vs.wait{color:var(--amber)}
+  .rc-vs.ok{color:var(--green-deep)}.rc-vs.wait{color:var(--amber)}.rc-vs.self{color:var(--muted2)}
   .rc-empty{margin-top:13px;padding-top:13px;border-top:1px solid #f4f1ec;display:flex;align-items:center;gap:10px}
+
+  /* connected systems */
+  .sysgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;margin-top:13px}
+  @media (max-width:720px){.sysgrid{grid-template-columns:1fr}}
+  .sys{background:var(--card);border-radius:13px;box-shadow:var(--inset2);padding:14px 15px;display:flex;flex-direction:column}
+  .sys.on{box-shadow:0 0 0 1.4px var(--green) inset}
+  .sys-ic{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:var(--ncs);color:var(--nc)}
+  .sys-n{font-size:13px;font-weight:700;color:var(--ink);margin-top:10px}
+  .sys-d{font-size:11.5px;color:var(--muted);margin-top:3px;line-height:1.45;flex:1}
+  .sys-foot{margin-top:11px}
+
+  /* documents */
+  .docgrp{margin-top:20px}
+  .docgrp .seclab{margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  .doc{display:flex;align-items:center;gap:13px;background:var(--card);border-radius:12px;box-shadow:var(--inset2);padding:13px 15px;margin-bottom:8px}
+  .doc .di{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:none;background:var(--panel);color:var(--muted)}
+  .doc.ok .di{background:var(--green-soft);color:var(--green-deep)}
+  .doc .dn{font-size:13.5px;font-weight:600;color:var(--ink)}
+  .doc .dm{font-size:11.5px;color:var(--muted);margin-top:1px}
+  .doc .dact{margin-left:auto;flex:none}
+
+  /* messages */
+  .msgwrap{margin-top:18px;background:var(--card);border-radius:15px;box-shadow:var(--inset2);overflow:hidden}
+  .mthread{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-bottom:1px solid #f4f1ec;cursor:pointer}
+  .mthread:last-child{border-bottom:0}
+  .mthread:hover{background:var(--panel)}
+  .mt-n{font-size:13.5px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:7px}
+  .mt-l{font-size:12px;color:var(--muted);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:520px}
+  .mt-time{margin-left:auto;font-size:11px;color:var(--muted2);flex:none;white-space:nowrap}
+  .mdot{width:7px;height:7px;border-radius:50%;background:var(--ember);flex:none}
+  .thread-head{display:flex;align-items:center;gap:11px;padding:13px 16px;border-bottom:1px solid var(--border)}
+  .thread-back{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;cursor:pointer;color:var(--muted);background:none;border:0}
+  .thread-back:hover{background:var(--panel)}
+  .bubbles{padding:18px 16px;display:flex;flex-direction:column;gap:10px;background:var(--panel)}
+  .bub{max-width:80%;font-size:13px;line-height:1.5;padding:10px 13px;border-radius:14px}
+  .bub.them{background:var(--card);box-shadow:var(--inset2);align-self:flex-start;border-bottom-left-radius:5px;color:var(--ink-soft)}
+  .bub.me{background:var(--ink);color:#fff;align-self:flex-end;border-bottom-right-radius:5px}
+  .bub .bt{font-size:9.5px;opacity:.6;margin-top:4px;font-weight:600;letter-spacing:.03em}
+  .composer{display:flex;gap:9px;padding:12px 14px;border-top:1px solid var(--border);align-items:center}
+  .composer input{flex:1;border:0;background:var(--panel);border-radius:99px;padding:11px 16px;font-family:var(--font);font-size:13px;color:var(--ink)}
+  .composer input:focus{outline:none;box-shadow:var(--inset2)}
+
+  /* entry gate */
+  .gate{position:fixed;inset:0;z-index:500;background:radial-gradient(130% 90% at 50% -20%, #ffffff, var(--bg));display:grid;place-items:center;padding:24px}
+  .gate-card{max-width:460px;text-align:center;animation:rise .5s var(--spring)}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .gate-logo{width:56px;height:56px;border-radius:16px;background:var(--ink);display:grid;place-items:center;margin:0 auto 16px}
+  .gate-card h1{font-family:var(--display);font-weight:500;font-size:28px;color:var(--ink);line-height:1.16;margin:8px 0}
+  .gate-card p{font-size:14px;color:var(--body);line-height:1.62;max-width:410px;margin:0 auto}
+  .gate-meta{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);background:var(--card);box-shadow:var(--inset2);border-radius:99px;padding:7px 14px;margin:20px 0}
+  .gate-meta .av{width:20px;height:20px;font-size:9px}
+  .gate-actions{display:flex;flex-direction:column;align-items:center;gap:12px}
 
   /* drawer */
   .scrim{position:fixed;inset:0;background:rgba(19,18,16,.34);backdrop-filter:blur(2px);z-index:300;opacity:0;pointer-events:none;transition:opacity .25s}
@@ -229,6 +282,12 @@
   .prop-total b{font-size:17px;font-family:var(--display);color:var(--ink)}
   .prop-fine{font-size:10.5px;color:var(--muted2);line-height:1.5;padding-top:8px}
 
+  /* generic modal (system connect) */
+  .scrim2{position:fixed;inset:0;background:rgba(19,18,16,.34);backdrop-filter:blur(2px);z-index:320;opacity:0;pointer-events:none;transition:opacity .2s}
+  .scrim2.on{opacity:1;pointer-events:auto}
+  .modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-46%) scale(.97);opacity:0;pointer-events:none;z-index:330;width:410px;max-width:94vw;background:var(--bg);border-radius:18px;box-shadow:var(--pop-lg);padding:24px;transition:opacity .2s,transform .2s}
+  .modal.on{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
+
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;font-family:var(--font);font-size:13px;font-weight:600;border:0;border-radius:999px;cursor:pointer;padding:9px 15px;transition:transform .1s,background .15s;text-decoration:none;white-space:nowrap}
   .btn:active{transform:scale(.98)}
   .btn--dark{background:var(--ink);color:#fff}.btn--dark:hover{background:#2e2c28}
@@ -240,6 +299,8 @@
   #toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(90px);z-index:400;background:var(--ink);color:#fff;border-radius:12px;padding:12px 16px;font-size:13px;font-weight:500;display:flex;align-items:center;gap:11px;box-shadow:var(--pop-lg);transition:transform .35s var(--spring);max-width:92vw}
   #toast.on{transform:translateX(-50%) translateY(0)}
   #toast .ic{color:#7ee2a4}
+  .empty{text-align:center;padding:40px 20px;color:var(--muted)}
+  .empty .ei{width:48px;height:48px;border-radius:14px;background:var(--panel);color:var(--muted2);display:grid;place-items:center;margin:0 auto 14px}
 </style>
 </head>
 <body>
@@ -269,6 +330,9 @@
   <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
   <symbol id="i-msg" viewBox="0 0 24 24"><path d="M21 11.5a8 8 0 0 1-11.6 7.2L3 21l2.3-6.4A8 8 0 1 1 21 11.5z"/></symbol>
   <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v12M7 11l5 5 5-5M5 20h14"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></symbol>
 </svg>
 
 <div class="topbar">
@@ -284,8 +348,12 @@
 
 <div class="wrap" id="wrap"></div>
 
+<div class="gate" id="gate"></div>
+
 <div class="scrim" id="scrim" onclick="closeDrawer()"></div>
 <div class="drawer" id="drawer"></div>
+<div class="scrim2" id="mscrim" onclick="closeModal()"></div>
+<div class="modal" id="modal"></div>
 <div id="toast"></div>
 
 <script>
@@ -428,11 +496,27 @@ function vendorView(svc, id){
   return Object.assign({}, v, {recommended:true, recName:v.name});
 }
 
+/* ---------- connectable data systems ---------- */
+const SYSTEMS={
+  quickbooks:{ name:'QuickBooks Online', icon:'i-chart', color:'green', tag:'Accounting',
+    desc:'Syncs your books so your royalty-ready P&L matches HQ automatically.',
+    detail:'Read-only sync of your chart of accounts and transactions. Powers your monthly P&L and the brand’s roll-up — you connect once and your numbers stay current.' },
+  pos:{ name:'Mindbody POS', icon:'i-store', color:'blue', tag:'Point of sale',
+    desc:'Court bookings, retail, and team hours flow in automatically.',
+    detail:'Connects your point of sale so sales and labor hours sync in real time — feeding payroll and your daily revenue reporting without manual entry.' },
+  bank:{ name:'Business bank account', icon:'i-bank', color:'amber', tag:'Banking',
+    desc:'Connect read-only so every build & operating cost is categorized.',
+    detail:'Bank-level encrypted, read-only connection. Transactions flow straight into your books so nothing is missed and reconciliation is automatic. CoverPanda never moves money or stores your login.' },
+};
+
 /* ---------- the roadmap (modeled on the live Swig onboarding template) ---------- */
 const STATE = {
+  entered:false,
   tab:'roadmap',
   showWelcome:true,
-  // each entry: null  OR  {id:'cp'|'alt', name, who, status:'requested'|'engaged'}
+  thread:null,
+  systems:{ quickbooks:null, pos:null, bank:null },        // null | 'connected'
+  // each entry: null OR {id:'cp'|'alt', name, who, status:'requested'|'engaged'|'self'}
   roster:{ accounting:null, formation:null, lending:null, insurance:null, payroll:null },
   phases:[
     { id:'p1', t:'Kickoff & entity setup', icon:'i-flag', color:'green', wk:'Weeks 1–3', open:true, tasks:[
@@ -456,7 +540,7 @@ const STATE = {
       { t:'Pull permits & complete construction', d:'Permit drawings, city submission, build, certificate of occupancy.', type:'up' },
     ]},
     { id:'p5', t:'Vendors & technology', icon:'i-chart', color:'green', wk:'Weeks 16–22', tasks:[
-      { t:'Install your POS & tech stack', d:'Mindbody POS, court booking, retail.', type:'up' },
+      { t:'Install your POS & tech stack', d:'Mindbody POS, court booking, retail.', type:'up', sys:'pos' },
       { t:'Set up payroll & HR before your first hire', d:'Accounts, pay cards, and onboarding docs ready day one.', type:'up', svc:'payroll' },
       { t:'Turn on bookkeeping for the unit', d:'Categorize every build and operating cost from the start.', type:'up', svc:'accounting' },
     ]},
@@ -488,19 +572,45 @@ function allTasks(){ return STATE.phases.flatMap(p=>p.tasks); }
 function phaseDone(p){ return p.tasks.filter(t=>t.done).length; }
 function overallPct(){ const all=allTasks(); return Math.round(all.filter(t=>t.done).length/all.length*100); }
 function rosterCount(status){ return Object.values(STATE.roster).filter(r=>r&&r.status===status).length; }
+function inNetwork(){ return Object.values(STATE.roster).filter(r=>r&&(r.status==='engaged'||r.status==='requested')).length; }
+
+/* ---------- entry gate ---------- */
+function renderGate(){
+  return `<div class="gate-card">
+    <div class="gate-logo"><svg width="28" height="28" viewBox="0 0 26 26"><use href="#i-panda"/></svg></div>
+    <span class="seclab">You’re invited</span>
+    <h1>Bright Pickleball invited you to launch Tucson&nbsp;#1.</h1>
+    <p>Maya, this is your onboarding portal — your roadmap from signing to grand opening, with a vetted pro lined up at every step that needs one. It’s yours: nothing is shared back to the brand without your say.</p>
+    <div class="gate-meta">${avatar('18','BP',20,false)} From Bright Pickleball · Franchise Operations <span style="color:var(--border2)">·</span> expires in 7 days</div>
+    <div class="gate-actions">
+      <button class="btn btn--dark btn--lg" onclick="enterPortal()">Accept &amp; open my portal ${ic('i-arrow','ic--s')}</button>
+      <button class="mlink" onclick="toast('No problem — the invite stays open for 7 days.')">Not right now</button>
+    </div>
+  </div>`;
+}
+function enterPortal(){ STATE.entered=true; rerender(); }
 
 /* ---------- render ---------- */
 function rerender(){
+  const gate=$id('gate');
+  if(!STATE.entered){ gate.style.display='grid'; gate.innerHTML=renderGate(); return; }
+  gate.style.display='none'; gate.innerHTML='';
   $id('tbPct').textContent = overallPct()+'%';
-  const inNet = Object.values(STATE.roster).filter(Boolean).length;
+  const net = inNetwork();
+  const newMsgs = rosterCount('requested');
   $id('tabs').innerHTML = [
     ['roadmap','i-flag','Roadmap',''],
-    ['vendors','i-store','Vendors', inNet?`<span class="badge" style="background:var(--green)">${inNet}</span>`:''],
+    ['vendors','i-store','Vendors', net?`<span class="badge" style="background:var(--green)">${net}</span>`:''],
     ['documents','i-doc','Documents',''],
-    ['messages','i-spark','Messages',''],
-  ].map(([k,icn,l,b])=>`<button class="${STATE.tab===k?'on':''}" ${(k==='documents'||k==='messages')?'disabled':''} onclick="STATE.tab='${k}';rerender()">${ic(icn,'ic--s')} ${l} ${b}</button>`).join('');
-  $id('wrap').innerHTML = STATE.tab==='vendors' ? renderVendors() : renderRoadmap();
+    ['messages','i-msg','Messages', newMsgs?`<span class="badge">${newMsgs}</span>`:''],
+  ].map(([k,icn,l,b])=>`<button class="${STATE.tab===k?'on':''}" onclick="setTab('${k}')">${ic(icn,'ic--s')} ${l} ${b}</button>`).join('');
+  $id('wrap').innerHTML =
+    STATE.tab==='vendors'   ? renderVendors() :
+    STATE.tab==='documents' ? renderDocuments() :
+    STATE.tab==='messages'  ? renderMessages() :
+                              renderRoadmap();
 }
+function setTab(k){ STATE.tab=k; if(k!=='messages') STATE.thread=null; rerender(); }
 
 function renderRoadmap(){
   const welcome = STATE.showWelcome ? `
@@ -532,18 +642,34 @@ function taskRow(p,ti,t){
   else if(t.type==='up') actPill = `<span class="pill up">Upload</span>`;
   else if(t.type==='opt') actPill = `<span class="pill opt">Optional</span>`;
   else actPill='';
-  const vcard = t.svc ? vendorConnect(p,ti,t) : '';
+  let extra='';
+  if(t.svc) extra=vendorConnect(p,ti,t);
+  else if(t.sys) extra=systemConnect(t);
   return `<div class="task ${t.done?'done':''}">
       <div class="tk" onclick="toggleTask('${p.id}',${ti})">${ic('i-check','ic--s')}</div>
-      <div style="flex:1;min-width:0"><div class="tt">${t.t}</div><div class="td">${t.d}</div>${vcard}</div>
+      <div style="flex:1;min-width:0"><div class="tt">${t.t}</div><div class="td">${t.d}</div>${extra}</div>
       <div class="tact">${actPill}</div>
     </div>`;
 }
 
-/* the inline "meet a pro" moment at a service step — 3 states */
+/* inline "connect a system" moment (POS, etc.) */
+function systemConnect(t){
+  const s=SYSTEMS[t.sys]; const on=STATE.systems[t.sys];
+  if(on){ return `<div class="vconnect engaged"><div class="vc-row" style="margin-top:0;background:transparent;box-shadow:none;padding:0">
+    <div class="vc-logo" style="background:var(--green)">${ic('i-link','ic--s')}</div>
+    <div style="flex:1"><div class="vc-name">${s.name} <span class="vbadge cp">${ic('i-check','ic--s')} Connected</span></div><div class="vc-meta">Syncing automatically · ${s.tag}</div></div>
+    </div></div>`; }
+  return `<div class="vconnect"><div class="vc-top"><div class="vc-pa"><svg width="16" height="16" viewBox="0 0 26 26"><use href="#i-panda"/></svg></div>
+    <div><div class="vc-lead">Connect ${s.name}.</div><div class="vc-sub">${s.desc}</div></div></div>
+    <div class="vc-row"><div class="vc-logo" style="background:var(--ink)">${ic('i-link','ic--s')}</div>
+      <div style="flex:1"><div class="vc-name">${s.name}</div><div class="vc-meta">${s.tag} · read-only, secure</div></div>
+      <button class="btn btn--dark btn--sm" onclick="openSystem('${t.sys}')">Connect ${ic('i-arrow','ic--s')}</button></div></div>`;
+}
+
+/* the inline "meet a pro" moment at a service step — 4 states */
 function vendorConnect(p,ti,t){
   const r=STATE.roster[t.svc];
-  const v=vendorView(t.svc, r? r.id : 'cp');
+  const v=vendorView(t.svc, r&&r.id? r.id : 'cp');
   if(r && r.status==='engaged'){
     return `<div class="vconnect engaged">
       <div class="vc-row" style="margin-top:0;background:transparent;box-shadow:none;padding:0">
@@ -560,6 +686,14 @@ function vendorConnect(p,ti,t){
         <button class="btn btn--dark btn--sm" onclick="openVendor('${t.svc}',{step:'proposal'})">View proposal ${ic('i-arrow','ic--s')}</button>
       </div></div>`;
   }
+  if(r && r.status==='self'){
+    return `<div class="vconnect self">
+      <div class="vc-row" style="margin-top:0;background:transparent;box-shadow:none;padding:0">
+        <div class="vc-logo" style="background:var(--stone);color:var(--muted)">${ic('i-users','ic--s')}</div>
+        <div style="flex:1;min-width:0"><div class="vc-name" style="color:var(--muted)">Self-managed <span class="vbadge alt">Off-platform</span></div><div class="vc-meta">You’re handling this step with your own provider.</div></div>
+        <button class="btn btn--ghost btn--sm" onclick="openVendor('${t.svc}')">Find a vendor</button>
+      </div></div>`;
+  }
   return `<div class="vconnect">
     <div class="vc-top"><div class="vc-pa"><svg width="16" height="16" viewBox="0 0 26 26"><use href="#i-panda"/></svg></div>
       <div><div class="vc-lead">Need a hand with this? Meet your pro.</div><div class="vc-sub">${p.t==='Kickoff & entity setup'?'I lined up Bright Pickleball’s recommended pro for this step:':'Bright Pickleball’s recommended pro for this step:'}</div></div></div>
@@ -572,14 +706,14 @@ function vendorConnect(p,ti,t){
   </div>`;
 }
 
-/* ---------- vendors tab (the roster / stack) ---------- */
+/* ---------- vendors tab (the roster / stack + connected systems) ---------- */
 function catNeed(c){ return ({accounting:'Bookkeeping, royalty-ready P&L, tax',formation:'Entity, EIN, DBA, registered agent',lending:'Build-out + operating financing',insurance:'GL, property, workers’ comp',payroll:'Payroll, tax filing, HR'})[c]; }
 function renderVendors(){
   const cats=['accounting','formation','lending','insurance','payroll'];
   const connected=rosterCount('engaged'), requested=rosterCount('requested');
   const cards = cats.map(c=>{
     const r=STATE.roster[c];
-    const v=vendorView(c, r? r.id : 'cp'); const [c1,c2]=COLORS[VENDORS[c].color];
+    const v=vendorView(c, r&&r.id? r.id : 'cp'); const [c1,c2]=COLORS[VENDORS[c].color];
     let body, cls='';
     if(r && r.status==='engaged'){ cls='connected';
       body=`<div class="rc-vendor">${avatar(v.hue,v.initials,30,true)}
@@ -589,6 +723,10 @@ function renderVendors(){
       body=`<div class="rc-vendor">${avatar(v.hue,v.initials,30,false)}
           <div style="flex:1;min-width:0"><div class="rc-vn">${r.name}</div><div class="rc-vs wait">${ic('i-clock','ic--s')} ${r.who} · proposal incoming</div></div>
           <button class="btn btn--dark btn--sm" onclick="openVendor('${c}',{step:'proposal'})">View</button></div>`;
+    } else if(r && r.status==='self'){
+      body=`<div class="rc-vendor"><div class="rc-vlogo" style="background:var(--stone);color:var(--muted)">${ic('i-users','ic--s')}</div>
+          <div style="flex:1;min-width:0"><div class="rc-vn" style="color:var(--muted)">Self-managed</div><div class="rc-vs self">Off-platform · your own provider</div></div>
+          <button class="btn btn--ghost btn--sm" onclick="openVendor('${c}')">Find a vendor</button></div>`;
     } else {
       body=`<div class="rc-empty"><div style="flex:1;font-size:12px;color:var(--muted)">Not connected yet — add when you reach this step, or now.</div>
           <button class="btn btn--dark btn--sm" onclick="openVendor('${c}')">Connect ${ic('i-arrow','ic--s')}</button></div>`;
@@ -598,13 +736,149 @@ function renderVendors(){
       ${body}
     </div>`;
   }).join('');
+
+  // connected systems block
+  const sysConnected=Object.values(STATE.systems).filter(Boolean).length;
+  const sysCards=Object.entries(SYSTEMS).map(([k,s])=>{
+    const [c1,c2]=COLORS[s.color]; const on=STATE.systems[k];
+    return `<div class="sys ${on?'on':''}" style="--nc:${c1};--ncs:${c2}">
+      <div class="sys-ic">${ic(s.icon,'ic--s')}</div>
+      <div class="sys-n">${s.name}</div><div class="sys-d">${s.desc}</div>
+      <div class="sys-foot">${on
+        ? `<span class="rc-vs ok" style="font-size:11.5px">${ic('i-check','ic--s')} Connected · syncing</span>`
+        : `<button class="btn btn--ghost btn--sm" onclick="openSystem('${k}')">${ic('i-link','ic--s')} Connect</button>`}</div>
+    </div>`;
+  }).join('');
+
   return `<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:4px">
       <div><span class="seclab">Your vendor network</span>
         <h1 style="font-family:var(--display);font-weight:500;font-size:24px;color:var(--ink);margin-top:7px">Your vendors &amp; connections</h1>
         <div style="font-size:13px;color:var(--muted);margin-top:3px">Everyone helping you open Tucson #1, in one roster. <b style="color:var(--ink)">${connected} of 5</b> connected${requested?` · ${requested} proposal${requested>1?'s':''} in progress`:''}.</div></div>
     </div>
     <div class="roster">${cards}</div>
-    <div class="note" style="margin-top:18px">🐼 Bright Pickleball pre-approved these for your category. You can swap in your own at any step — whoever you pick, agreements and payments run here, so this roster stays your single source of truth.</div>`;
+    <div class="note" style="margin-top:18px">🐼 Bright Pickleball pre-approved these for your category. You can swap in your own at any step — whoever you pick, agreements and payments run here, so this roster stays your single source of truth.</div>
+    <div style="display:flex;align-items:center;gap:8px;margin-top:30px"><span class="seclab">Connected systems</span><span style="font-size:11.5px;color:var(--muted)">${sysConnected} of 3 · feeds your books, payroll & reporting</span></div>
+    <div class="sysgrid">${sysCards}</div>`;
+}
+
+/* ---------- documents tab ---------- */
+function documents(){
+  const docs=[];
+  docs.push({name:'Franchise Agreement', grp:'Signed & filed', meta:'Signed Jun 2 · with your attorney', act:'view', icon:'i-doc'});
+  docs.push({name:'Initial franchise fee — receipt', grp:'Signed & filed', meta:'Paid on CoverPanda Payments · Jun 2', act:'download', icon:'i-doc'});
+  Object.entries(STATE.roster).forEach(([k,r])=>{ if(r&&r.status==='engaged'){
+    docs.push({name:`${VENDORS[k].cat} — service agreement`, grp:'Signed & filed', meta:`Signed with ${r.who} (${r.name})`, act:'view', icon:'i-doc'});
+  }});
+  const ins=STATE.roster.insurance;
+  if(ins&&ins.status==='engaged') docs.push({name:'Certificate of Insurance (COI)', grp:'Signed & filed', meta:'Auto-filed to Bright Pickleball', act:'download', icon:'i-shield'});
+  else docs.push({name:'Certificate of Insurance (COI)', grp:'Awaiting you', meta:'Bind insurance (Phase 1) and it generates here', act:'wait', icon:'i-shield'});
+  docs.push({name:'Executed lease', grp:'Awaiting you', meta:'Upload once signed (Phase 3)', act:'upload', icon:'i-doc'});
+  docs.push({name:'Certificate of occupancy', grp:'Awaiting you', meta:'Upload after construction (Phase 4)', act:'upload', icon:'i-doc'});
+  docs.push({name:'Bright Pickleball brand standards', grp:'Shared by Bright Pickleball', meta:'PDF · v4.2', act:'view', icon:'i-flag'});
+  docs.push({name:'Franchise Disclosure Document (FDD)', grp:'Shared by Bright Pickleball', meta:'PDF · 2026 edition', act:'view', icon:'i-doc'});
+  docs.push({name:'Build-out design spec', grp:'Shared by Bright Pickleball', meta:'PDF · Tucson venue type', act:'download', icon:'i-hammer'});
+  return docs;
+}
+function docAct(a){
+  if(a==='upload') return `<button class="btn btn--dark btn--sm" onclick="toast('Upload opens your file picker in the full app')">${ic('i-upload','ic--s')} Upload</button>`;
+  if(a==='download') return `<button class="btn btn--ghost btn--sm" onclick="toast('Downloading…')">${ic('i-download','ic--s')} Download</button>`;
+  if(a==='wait') return `<span class="pill opt">Pending</span>`;
+  return `<button class="btn btn--ghost btn--sm" onclick="toast('Opening document…')">View</button>`;
+}
+function renderDocuments(){
+  const docs=documents();
+  const grps=['Signed & filed','Awaiting you','Shared by Bright Pickleball'];
+  const awaiting=docs.filter(d=>d.grp==='Awaiting you'&&d.act!=='wait').length + docs.filter(d=>d.grp==='Awaiting you'&&d.act==='wait').length;
+  const head=`<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap">
+      <div><span class="seclab">Documents</span>
+        <h1 style="font-family:var(--display);font-weight:500;font-size:24px;color:var(--ink);margin-top:7px">Your launch paperwork</h1>
+        <div style="font-size:13px;color:var(--muted);margin-top:3px">Every agreement, certificate, and brand file in one place. ${docs.filter(d=>d.grp==='Awaiting you').length} awaiting you.</div></div>
+    </div>`;
+  const body=grps.map(g=>{
+    const items=docs.filter(d=>d.grp===g);
+    const icon = g==='Signed & filed'?'i-check':g==='Awaiting you'?'i-clock':'i-flag';
+    return `<div class="docgrp"><div class="seclab">${ic(icon,'ic--s')} ${g} · ${items.length}</div>
+      ${items.map(d=>`<div class="doc ${d.act==='view'||d.act==='download'?(d.grp==='Signed & filed'?'ok':''):''}">
+        <div class="di">${ic(d.icon,'ic--s')}</div>
+        <div style="min-width:0"><div class="dn">${d.name}</div><div class="dm">${d.meta}</div></div>
+        <div class="dact">${docAct(d.act)}</div></div>`).join('')}</div>`;
+  }).join('');
+  return head+body;
+}
+
+/* ---------- messages tab ---------- */
+function threads(){
+  const list=[{ id:'hq', name:'Bright Pickleball HQ', who:'Franchise Operations', hue:'18', initials:'BP', brand:true,
+    last:'Welcome, Maya! Your roadmap is live — reach out any time you need us.', time:'2d', unread:false,
+    msgs:[
+      {from:'them', t:'Welcome to the Bright Pickleball family, Maya! 🎉 Your Tucson #1 onboarding portal is live.', at:'Mon 9:02 AM'},
+      {from:'them', t:'Work the roadmap at your pace. At each step that needs a pro, we’ve lined one up for you. Anything you need, we’re right here.', at:'Mon 9:03 AM'},
+      {from:'me', t:'Thank you! Excited to get going. Starting on the entity setup now.', at:'Mon 9:20 AM'},
+    ]}];
+  Object.entries(STATE.roster).forEach(([k,r])=>{
+    if(r&&(r.status==='engaged'||r.status==='requested')){
+      const v=vendorView(k,r.id);
+      list.push({ id:k, name:r.who, who:r.name, hue:v.hue, initials:v.initials, unread:r.status==='requested',
+        last: r.status==='requested'?'Got your request — I’ll have a proposal over to you shortly.':'Sounds good — I’ll get started. Talk soon!',
+        time: r.status==='requested'?'1h':'3h',
+        msgs: r.status==='requested'
+          ? [{from:'them', t:`Hi Maya — thanks for the request through Bright Pickleball. I’ve got your unit details and brand terms; a pre-filled proposal is on its way.`, at:'Today'}]
+          : [{from:'them', t:`Hi Maya — great to be working with you on Tucson #1. I’ll get started right away and keep you posted here.`, at:'Today'},
+             {from:'me', t:`Perfect, thank you ${firstName(r.who)}!`, at:'Today'}] });
+    }
+  });
+  return list;
+}
+function renderMessages(){
+  const list=threads();
+  if(STATE.thread){
+    const th=list.find(t=>t.id===STATE.thread) || list[0];
+    return `<div class="msgwrap">
+      <div class="thread-head">
+        <button class="thread-back" onclick="STATE.thread=null;rerender()">${ic('i-chev')}</button>
+        ${avatar(th.hue,th.initials,36,th.brand?false:STATE.roster[th.id]&&STATE.roster[th.id].status==='engaged')}
+        <div><div class="mt-n">${th.name}</div><div style="font-size:11.5px;color:var(--muted)">${th.who}</div></div>
+      </div>
+      <div class="bubbles">${th.msgs.map(m=>`<div class="bub ${m.from}">${m.t}<div class="bt">${m.at}</div></div>`).join('')}</div>
+      <div class="composer"><input placeholder="Message ${firstName(th.name)}…" onkeydown="if(event.key==='Enter'){this.value='';toast('Messaging is live in the full app')}"><button class="btn btn--dark btn--sm" onclick="toast('Messaging is live in the full app')">Send</button></div>
+    </div>`;
+  }
+  const head=`<span class="seclab">Messages</span>
+    <h1 style="font-family:var(--display);font-weight:500;font-size:24px;color:var(--ink);margin-top:7px">Your conversations</h1>
+    <div style="font-size:13px;color:var(--muted);margin-top:3px">Bright Pickleball and every vendor you connect, in one inbox.</div>`;
+  const rows=list.map(th=>`<div class="mthread" onclick="STATE.thread='${th.id}';rerender()">
+      ${avatar(th.hue,th.initials,38,th.brand?false:STATE.roster[th.id]&&STATE.roster[th.id].status==='engaged')}
+      <div style="flex:1;min-width:0"><div class="mt-n">${th.name}${th.unread?'<span class="mdot"></span>':''}</div><div class="mt-l">${th.last}</div></div>
+      <span class="mt-time">${th.time}</span>
+    </div>`).join('');
+  const hint = list.length<2 ? `<div class="note" style="margin-top:14px">Connect a vendor from your Roadmap and a direct conversation with them opens here automatically.</div>` : '';
+  return head + `<div class="msgwrap">${rows}</div>` + hint;
+}
+
+/* ---------- system connect modal ---------- */
+let MODAL_SYS=null;
+function openSystem(k){
+  MODAL_SYS=k; const s=SYSTEMS[k];
+  $id('modal').innerHTML=`
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+      <div class="sys-ic" style="width:40px;height:40px;border-radius:11px;background:${COLORS[s.color][1]};color:${COLORS[s.color][0]}">${ic(s.icon)}</div>
+      <div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--ink)">Connect ${s.name}</div><div style="font-size:11.5px;color:var(--muted)">${s.tag}</div></div>
+      <button class="dback" onclick="closeModal()" style="transform:none">${ic('i-x')}</button>
+    </div>
+    <p style="font-size:13px;line-height:1.6;color:var(--body)">${s.detail}</p>
+    <div class="note" style="display:flex;gap:9px;align-items:flex-start"><span style="margin-top:1px">${ic('i-lock','ic--s')}</span><span><b>You stay in control.</b> This is a secure, read-only connection. CoverPanda never sees or stores your login, and never moves money.</span></div>
+    <button class="btn btn--dark btn--lg btn--block" style="margin-top:16px" onclick="confirmSystem()">Continue to ${s.name} ${ic('i-arrow','ic--s')}</button>
+    <button class="mlink" style="display:block;margin:11px auto 0" onclick="closeModal()">Cancel</button>`;
+  $id('mscrim').classList.add('on'); $id('modal').classList.add('on');
+}
+function closeModal(){ $id('mscrim').classList.remove('on'); $id('modal').classList.remove('on'); }
+function confirmSystem(){
+  const k=MODAL_SYS, s=SYSTEMS[k];
+  STATE.systems[k]='connected';
+  // mark the related roadmap task done (e.g. POS install)
+  STATE.phases.forEach(p=>p.tasks.forEach(t=>{ if(t.sys===k) t.done=true; }));
+  closeModal(); rerender();
+  toast(`${s.name} connected · syncing now`);
 }
 
 /* ---------- the marketplace engagement drawer (profile → tailor → review → proposal → connect) ---------- */
@@ -621,8 +895,8 @@ function selectedProducts(v){ return v.products.filter((p,i)=>DRAWER.sel[i]); }
 
 function openVendor(svc, opts){
   opts=opts||{}; const r=STATE.roster[svc];
-  const id = opts.id || (r? r.id : 'cp');
-  let step = opts.step || (r ? (r.status==='engaged'?'engaged':'sent') : 'profile');
+  const id = opts.id || (r&&r.id? r.id : 'cp');
+  let step = opts.step || (r&&r.status==='engaged'?'engaged' : r&&r.status==='requested'?'sent' : 'profile');
   const v=vendorView(svc, id);
   DRAWER={ svc, id, step, sel:defaultSel(v), ctx:CTX[svc].def, note:'' };
   renderDrawer();
@@ -669,7 +943,8 @@ function renderDrawer(){
         <div class="crow">${ic('i-mail','ic--s')} ${v.contact.email}</div>
         <div class="crow" style="border-bottom:0">${ic('i-globe','ic--s')} ${v.contact.site}</div>
         <div class="locknote">${ic('i-lock','ic--s')} Full contact details unlock once you connect — your info stays private until you choose to share it.</div>
-      </div>`;
+      </div>
+      <button class="mlink" style="display:block;margin-top:16px" onclick="declineVendor('${svc}')">I’ll handle this step off-platform →</button>`;
     foot = `<button class="mlink" onclick="openVendor('${svc}',{id:'${v.recommended?'alt':'cp'}'})">${v.recommended?`Compare ${v.alt.name}`:`See ${v.recName}`}</button>
       <span style="flex:1"></span>
       <button class="btn btn--green btn--lg" onclick="goStep('tailor')">Request intro & proposal ${ic('i-arrow','ic--s')}</button>`;
@@ -722,7 +997,7 @@ function renderDrawer(){
         <span class="lc now">Proposal</span><span class="lc-ar">${ic('i-arrow','ic--s')}</span>
         <span class="lc next">Sign &amp; kick off</span>
       </div>
-      <div class="note">Added to your Vendors as <b>“Requested.”</b> Keep working your roadmap — I’ll ping you the moment the proposal lands.</div>`;
+      <div class="note">Added to your Vendors as <b>“Requested,”</b> and a conversation with ${firstName(v.person)} just opened in Messages. Keep working your roadmap — I’ll ping you the moment the proposal lands.</div>`;
     foot = `<button class="btn btn--ghost" onclick="closeDrawer()">Back to roadmap</button><span style="flex:1"></span>
       <button class="btn btn--dark btn--lg" onclick="goStep('proposal')">Preview the proposal ${ic('i-arrow','ic--s')}</button>`;
   }
@@ -744,12 +1019,11 @@ function renderDrawer(){
         </div>
       </div>
       <div class="note">🐼 Brand terms are already baked in${svc==='insurance'?' — written to your FDD minimums':''}. Accept and ${firstName(v.person)} joins your team; this step checks off your roadmap automatically.</div>`;
-    foot = `<button class="mlink" onclick="toast('Messaging opens in the full app')">Message ${firstName(v.person)}</button><span style="flex:1"></span>
+    foot = `<button class="mlink" onclick="STATE.tab='messages';STATE.thread='${svc}';closeDrawer();rerender()">Message ${firstName(v.person)}</button><span style="flex:1"></span>
       <button class="btn btn--green btn--lg" onclick="engageVendor()">Accept &amp; connect ${firstName(v.person)} ${ic('i-arrow','ic--s')}</button>`;
   }
 
   else if(step==='engaged'){
-    const r=STATE.roster[svc];
     body = stepper('connected') + `
       <div class="prof-hero">${avatar(v.hue,v.initials,56,true)}
         <div style="flex:1;min-width:0"><div class="prof-name">${v.person}</div>
@@ -759,7 +1033,7 @@ function renderDrawer(){
       <div class="seclab" style="margin:14px 0 9px">What ${firstName(v.person)} is handling</div>
       ${(selectedProducts(v).length?selectedProducts(v):v.products.filter(p=>p.rec)).map(p=>`<div class="prodview"><div class="pv-ic">${ic('i-check','ic--s')}</div><div><div class="pv-n">${p.name}</div><div class="pv-d">${p.note}</div></div></div>`).join('')}
       <div class="note">Agreements and payments run here, so this stays in your Vendors roster as your single source of truth. Need a change? Message ${firstName(v.person)} any time.</div>`;
-    foot = `<button class="mlink" onclick="toast('Messaging opens in the full app')">${ic('i-msg','ic--s')} Message ${firstName(v.person)}</button><span style="flex:1"></span>
+    foot = `<button class="mlink" onclick="STATE.tab='messages';STATE.thread='${svc}';closeDrawer();rerender()">${ic('i-msg','ic--s')} Message ${firstName(v.person)}</button><span style="flex:1"></span>
       <button class="btn btn--ghost" onclick="closeDrawer()">Done</button>`;
   }
 
@@ -785,6 +1059,11 @@ function engageVendor(){
   STATE.phases.forEach(p=>p.tasks.forEach(t=>{ if(t.svc===svc) t.done=true; }));
   DRAWER.step='engaged'; renderDrawer(); rerender();
   toast(`${v.person} is on your team 🎉`);
+}
+function declineVendor(svc){
+  STATE.roster[svc]={ id:null, name:'Self-managed', who:'Your own provider', status:'self' };
+  closeDrawer(); rerender();
+  toast('Marked self-managed — connect a vendor any time');
 }
 
 /* ---------- interactions ---------- */
